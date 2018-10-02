@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="ShortenerGBSJ@172.30.10.74" uuid="a1bb5de3-59b3-4985-95fd-2cf0b36dca65">
+      <database-info product="Microsoft SQL Server" version="11.00.6020" jdbc-version="3.0" driver-name="jTDS Type 4 JDBC Driver for MS SQL Server and Sybase" driver-version="1.3.1">
+        <extra-name-characters>$#@</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <domain-auth>true</domain-auth>
+      <introspection-schemas>ShortenerGBSJ:dbo</introspection-schemas>
+    </data-source>
+  </component>
+</project>

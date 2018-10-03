@@ -11,30 +11,29 @@
 (s/defschema ResponseUrl
   {:url s/Str})
 
-(def dominios {:bsj "http://a.bsj.digital/"
-               :bsc "http://a.bsc.digital/"
-               :bsf "http://a.bsf.digital/"
-               :ber "http://a.ber.digital/"})
+(defonce  ^:private dominios {:bsj "http://a.bsj.digital/"
+                              :bsc "http://a.bsc.digital/"
+                              :bsf "http://a.bsf.digital/"
+                              :ber "http://a.ber.digital/"})
 
 (defapi service-routes
   {:swagger {:ui   "/swagger-ui"
              :spec "/swagger.json"
              :data {:info {:version     "1.0.0"
                            :title       "Shortener API"
-                           :description "API para sistema que recorta URLS y redirecciona"}}}}
+                           :description "API para sistema que recorta URLS multibanco y redirecciona"}}}}
 
   (context "/api" []
-           :tags ["shortener"]
+    :tags ["shortener"]
 
-           (GET "/redirect/:short-url" []
-                :return nil
-                :path-params [short-url :- s/Str]
-                :summary "Redireccionar a la url solicitada."
-                (shorten/handle-redirect short-url))
+    (GET "/redirect/:short-url" []
+      :return nil
+      :path-params [short-url :- s/Str]
+      :summary "Redireccionar a la url solicitada."
+      (shorten/handle-redirect short-url))
 
-           (GET "/get-shorten" []
-                :return ResponseUrl
-                :query-params [banco :- String
-                               url :- String]
-                :summary "Generar URL corta según el banco. Banco debe ser bsj, bsc, bsf o ber cualquier otro valor dará error."
-                (shorten/get-shorten-url! (s/validate (s/maybe ShortenRequest) {:url url :banco (keyword banco)}) dominios))))
+    (POST "/get-shorten" []
+      :return ResponseUrl
+      :body [shrt ShortenRequest]
+      :summary "Generar URL corta según el banco. Banco debe ser bsj, bsc, bsf o ber cualquier otro valor dará error."
+      (shorten/get-shorten-url! shrt dominios))))
